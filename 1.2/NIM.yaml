@@ -1,0 +1,67 @@
+name: Boltz2NIM
+level: info
+
+nodes:
+- name: rnv_smiles_in
+  type: ReinventEntry
+- name: boltz
+  type: Boltz2NIM
+- name: rnv_out
+  type: ReinventExit
+- name: void
+  type: Void
+
+channels:
+- sending:
+    rnv_smiles_in: out
+  receiving:
+    boltz: inp
+- sending:
+    boltz: out
+  receiving:
+    rnv_out: inp
+- sending:
+    rnv_smiles_in: out_metadata
+  receiving:
+    void: inp
+
+parameters:
+
+- name: inp
+  map:
+  - rnv_smiles_in: data
+- name: out
+  map:
+  - rnv_out: data
+
+- name: template
+  map:
+  - boltz: template
+- name: nim_script
+  map:
+  - boltz: nim_script
+- name: nim_python
+  map:
+  - boltz: nim_python
+- name: n_jobs
+  map:
+  - boltz: n_jobs
+- name: n_retries
+  map:
+  - boltz: n_retries
+- name: retry_backoff
+  map:
+  - boltz: retry_backoff
+- name: http_422_score
+  map:
+  - boltz: http_422_score
+- name: score_name
+  map:
+  - boltz: score_name
+
+- name: save_dir
+  map:
+  - boltz: save_dir
+- name: save_pad
+  map:
+  - boltz: save_pad

@@ -1,0 +1,99 @@
+# REINVENT4 TOML input example for reinforcement/curriculum learning
+#
+#
+# Curriculum learning in REINVENT4 is a multi-stage reinforcement learning
+# run.  One or more stages (auto CL) can be defined.  But it is also
+# possible to continue a run from any checkpoint file that is generated
+# during the run (manual CL).  Currently checkpoints are written at the end
+# of a run also when the run is forcefully terminated with Ctrl-C.
+
+
+run_type = "staged_learning"
+device = "cuda:0"  # set torch device e.g. "cpu"
+tb_logdir = "results/out_RL/tb_logs"  # name of the TensorBoard logging directory
+
+
+[parameters]
+
+summary_csv_prefix = "results/out_RL/staged_learning"  # prefix for the CSV file
+use_checkpoint = false  # if true read diversity filter from agent_file
+purge_memories = false  # if true purge all diversity filter memories after each stage
+
+## Reinvent
+prior_file = "data/reinvent.prior"
+agent_file = "results/out_RL/TL_reinvent.chkpt.22.chkpt" # Use the chkpt with the best Loss
+
+batch_size = 64          # network
+
+unique_sequences = true  # if true remove all duplicates raw sequences in each step
+                         # only here for backward compatibility
+randomize_smiles = true  # if true shuffle atoms in SMILES randomly
+
+tb_isim = true  # track iSIM similarity in TensorBoard
+
+
+[learning_strategy]
+
+type = "dap"      # dap: only one supported
+sigma = 128       # sigma of the RL reward function
+rate = 0.0001     # for torch.optim
+
+
+[diversity_filter]  # optional, comment section out or remove if unneeded
+                    # NOTE: also memorizes all seen SMILES
+
+type = "IdenticalMurckoScaffold" # IdenticalTopologicalScaffold,
+                                 # ScaffoldSimilarity, PenalizeSameSmiles
+bucket_size = 25                 # memory size in number of compounds
+minscore = 0.4                   # only memorize if this threshold is exceeded
+minsimilarity = 0.4              # minimum similarity for ScaffoldSimilarity
+penalty_multiplier = 0.5         # penalty factor for PenalizeSameSmiles
+
+### Stage 1
+### Note that stages must always be a list i.e. double brackets
+[[stage]]
+
+chkpt_file = 'results/out_RL/S1_antiviral_QED.chkpt'  # name of the checkpoint file, can be reused as agent
+
+termination = "simple"
+max_score = 0.75
+min_steps = 25
+max_steps = 500
+
+[stage.scoring]
+type = "geometric_mean"  # aggregation function
+
+[[stage.scoring.component]]
+[stage.scoring.component.QED]
+[[stage.scoring.component.QED.endpoint]]
+name = "Drug-likeness"
+weight = 1.0
+
+### Stage 2
+# Alternatively only the first stage above can be run and the new input file
+# sets agent_file = 'test1.chkpt'.
+agent_file = 'results/out_RL/S1_antiviral_QED.chkpt'
+
+[[stage]]
+
+chkpt_file = 'results/out_RL/S2_antiviral_SA.chkpt'
+
+termination = "simple"  # termination criterion fot this stage
+max_score = 0.9  # terminate if this total score is exceeded
+min_steps = 25  # run for at least this number of steps
+max_steps = 100  # terminate entire run when exceeded
+
+[stage.scoring]
+type = "geometric_mean"  # aggregation function
+
+[[stage.scoring.component]]
+[stage.scoring.component.SAScore]
+[[stage.scoring.component.SAScore.endpoint]]
+name = "SA score"
+weight = 1.0
+
+[stage.scoring.component.SAScore.endpoint.transform]  
+type = "reverse_sigmoid" 
+low = 1.0
+high = 10.0
+k = 0.5

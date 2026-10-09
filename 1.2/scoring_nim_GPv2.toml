@@ -1,0 +1,70 @@
+[[component]]
+[component.custom_alerts]
+[[component.custom_alerts.endpoint]]
+name = "Minimal Alerts"
+
+[component.custom_alerts.endpoint.params]
+smarts = ["[*;r{8-17}]", "[#8][#8]", "[#6;+]", "[#16][#16]", "[#7;!n][#7;!n]"]
+
+
+[[component]]
+[component.NumRotBond]
+[[component.NumRotBond.endpoint]]
+name = "# rotatable bonds (<7)"
+weight = 2
+
+[component.NumRotBond.endpoint.transform]
+low = 7.0
+high = 9.0
+k = 0.5
+type = "reverse_sigmoid"
+
+
+[[component]]
+[component.molecular_weight]
+[[component.molecular_weight.endpoint]]
+name = "Molecular weight (300-450)"
+weight = 2
+
+[component.molecular_weight.endpoint.transform]
+low = 300.0
+high = 450.0
+coef_div = 450.0
+coef_si = 20.0
+coef_se = 20.0
+type = "double_sigmoid"
+
+
+[[component]]
+[component.Maize]
+[[component.Maize.endpoint]]
+name = "NIM Boltz-2"
+weight = 6
+
+[component.Maize.endpoint.params]
+executable = "/home/vvaldes/miniconda3/envs/maize/bin/maize"
+workflow = "NIM.yaml"
+config = "maize_global_config.toml"
+log = "results/out_RL_nim/maize_NIM.log"
+debug = false
+
+[component.Maize.endpoint.transform]
+type = "sigmoid"
+low = 6.0
+high = 10.0
+k = 0.3
+
+[component.Maize.endpoint.params.parameters]
+template = "6Y5F_v8.yaml"
+nim_script = "nim.py"
+nim_python = "/home/vvaldes/miniconda3/envs/nim/bin/python"
+
+score_name = "Boltz2.pIC50"
+
+n_jobs = 4
+n_retries = 5
+retry_backoff = 5.0
+http_422_score = 4.0
+
+save_dir = "results/out_RL_nim/"
+save_pad = 4

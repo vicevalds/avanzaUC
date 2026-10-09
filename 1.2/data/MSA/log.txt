@@ -1,0 +1,23 @@
+2026-09-01 17:00:48,778 Running colabfold 1.6.1
+2026-09-01 17:00:49,159 WARNING: no GPU detected, will be using CPU
+2026-09-01 17:01:01,615 Found 4 citations for tools or databases
+2026-09-01 17:01:01,615 Query 1/2: A (length 354)
+2026-09-01 17:01:04,814 Saved MSA/A.pickle
+2026-09-01 17:01:05,524 Query 2/2: B (length 456)
+2026-09-01 17:01:06,277 Sleeping for 9s. Reason: PENDING
+2026-09-01 17:01:16,047 Sleeping for 9s. Reason: RUNNING
+2026-09-01 17:01:25,821 Sleeping for 5s. Reason: RUNNING
+2026-09-01 17:01:31,573 Sleeping for 10s. Reason: RUNNING
+2026-09-01 17:01:42,329 Sleeping for 6s. Reason: RUNNING
+2026-09-01 17:01:49,086 Sleeping for 7s. Reason: RUNNING
+2026-09-01 17:01:56,850 Sleeping for 7s. Reason: RUNNING
+2026-09-01 17:02:04,658 Sleeping for 5s. Reason: RUNNING
+2026-09-01 17:02:10,407 Sleeping for 10s. Reason: RUNNING
+2026-09-01 17:02:21,180 Sleeping for 9s. Reason: RUNNING
+2026-09-01 17:02:30,936 Sleeping for 5s. Reason: RUNNING
+2026-09-01 17:02:36,692 Sleeping for 9s. Reason: RUNNING
+2026-09-01 17:02:46,447 Sleeping for 7s. Reason: RUNNING
+2026-09-01 17:02:54,203 Sleeping for 8s. Reason: RUNNING
+2026-09-01 17:03:03,272 Sleeping for 9s. Reason: RUNNING
+2026-09-01 17:03:14,135 Saved MSA/B.pickle
+2026-09-01 17:03:14,496 Done

@@ -1,0 +1,72 @@
+sequences:
+  - protein:
+      id: A
+      sequence: "KTIYELKMECPHTVGLGQGYIIGSTELGLISIEAASDIKLESSCNFDLHTTSMAQKSFTQVEWRKKSDTTDTTNAASTTFEAQTKTVNLRGTCILAPELYDTLKKVKKTVLCYDLTCNQTHCQPTVYLIAPVLTCMSIRSCMASVFTSRIQVIYEKTHCVTGQLIEGQCFNPAHTLTLSQPAHTYDTVTLPISCFFTPKKSEQLKVIKTFEGILTKTGCTENALQGYYVCFLGSHSEPLIVPSLEDIRSAEVVSRMLVHPRGEDHDAIQNSQSHLRIVGPITAKVPSTSSTDTLKGTAFAGVPMYSSLSTLVRNADPEFVFSPGIVPESNHSTCDKKTVPITWTGYLPISGEME"
+      msa: data/MSA/A.a3m
+  - protein:
+      id: B
+      sequence: "ETPLMESGWSDTAHGVGEIPMKTDLELDFSLPSSSSYSYRRKLTNPANKEESIPFHFQMEKQVIHAEIQPLGHWMDATFNIKTAFHCYGACQKYSYPWQTSKCFFEKDYQYETGWGCNPGDCPGVGTGCTACGVYLDKLKSVGKAYKIISLKYTRKVCIQLGTEQTCKHIDANDCLVTPSVKVCIVGTVSKLQPSDTLLFLGPLEQGGIILKQWCTTSCAFGDPGDIMSTPSGMRCPEHTGSFRKICGFATTPVCEYQGNTISGYKRMMATKDSFQSFNLTEPHITTNKLEWIDPDGNTRDHVNLVLNRDVSFQDLSDNPCKVDLHTQAIEGAWGSGVGFTLTCTVGLTECPSFMTSIKACDLAMCYGSTVTNLARGSNTVKVVGKGGHSGSSFKCCHDTDCSSEGLLASAPHLERVTGFNQIDSDKVYDDGAPPCTFKCWFTKSGEWLLGILNGN"
+      msa: data/MSA/B.a3m
+  - ligand:
+      id: C
+      ccd: "NAG"
+  - ligand:
+      id: D
+      ccd: "NAG"
+  - ligand:
+      id: E
+      ccd: "BMA"
+  - ligand:
+      id: F
+      ccd: "MAN"
+  - ligand:
+      id: G
+      ccd: "NAG"
+  - ligand:
+      id: H
+      ccd: "NAG"
+  - ligand:
+      id: I
+      ccd: "BMA"
+  - ligand:
+      id: J
+      ccd: "MAN"
+  - ligand:
+      id: K
+      smiles: LIGAND
+
+properties:
+  - affinity:
+      binder: K
+
+constraints:
+  - bond:
+      atom1: [A, 330, ND2]
+      atom2: [C, 1, C1]
+  - bond:
+      atom1: [C, 1, O4]
+      atom2: [D, 1, C1]
+  - bond:
+      atom1: [D, 1, O4]
+      atom2: [E, 1, C1]
+  - bond:
+      atom1: [E, 1, O3]
+      atom2: [F, 1, C1]
+  - bond:
+      atom1: [A, 118, ND2]
+      atom2: [G, 1, C1]
+  - bond:
+      atom1: [G, 1, O4]
+      atom2: [H, 1, C1]
+  - bond:
+      atom1: [H, 1, O4]
+      atom2: [I, 1, C1]
+  - bond:
+      atom1: [I, 1, O3]
+      atom2: [J, 1, C1]
+  - pocket:
+      binder: K
+      contacts: [[A, 280], [A, 297], [A, 298], [A, 299], [A, 300], [A, 316], [A, 317], [A, 347], [A, 348], [A, 349], [A, 350], [A, 353], [B, 76], [B, 77], [B, 78], [B, 79], [B, 80], [B, 81], [B, 82], [B, 84], [B, 85], [B, 86], [B, 87], [B, 90]]
+
+templates:
+    - cif: data/6Y5F.cif

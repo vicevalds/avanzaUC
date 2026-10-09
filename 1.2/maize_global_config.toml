@@ -1,0 +1,2 @@
+scratch = "/tmp"
+packages = ["maize.steps.mai", "mai_NIM"]

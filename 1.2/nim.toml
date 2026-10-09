@@ -1,0 +1,37 @@
+run_type = "staged_learning"
+device = "cpu"
+tb_logdir = "results/out_RL_nim/tb_stage_nim"
+
+[parameters]
+summary_csv_prefix = "results/out_RL_nim/stage_nim"
+use_checkpoint = false
+purge_memories = false
+prior_file = "data/reinvent.prior"
+agent_file = "results/out_RL/S2_antiviral_SA.chkpt"
+batch_size = 64
+randomize_smiles = true
+tb_isim = true
+
+[learning_strategy]
+type = "dap"
+sigma = 128
+rate = 0.0001
+
+[diversity_filter]
+type = "IdenticalMurckoScaffold"
+bucket_size = 25
+minscore = 0.4
+minsimilarity = 0.4
+penalty_multiplier = 0.5
+
+
+[[stage]]
+chkpt_file = "results/out_RL_nim/S3_nim.chkpt"
+termination = "simple"
+max_score = 0.9
+min_steps = 25
+max_steps = 800
+
+[stage.scoring]
+type = "geometric_mean"
+filename = "scoring_nim_GPv2.toml"
