@@ -1,0 +1,34 @@
+# REINVENT4 TOML input example for transfer learning
+#
+# Focus a given model towards a set of input SMILES.  This can also be used to
+# start from scratch from and an untrained prior.
+
+
+run_type = "transfer_learning"
+device = "cuda:0"  # set torch device e.g. "cpu"
+tb_logdir = "results/out_TL/tb_TL"  # name of the TensorBoard logging directory
+
+
+[parameters]
+
+num_epochs = 40  # number of steps to run
+save_every_n_epochs = 1 # save checkpoint model file very N steps
+batch_size = 64
+num_refs = 0  # number of reference molecules randomly chosen for similarity
+                # set this to zero for large datasets (>200 molecules)!
+sample_batch_size = 100  # number of sampled molecules to compute sample loss
+tb_isim = true  # track iSIM similarity in TensorBoard
+
+
+## Reinvent
+input_model_file = "data/reinvent.prior"
+smiles_file = "results/antivirals_train.smi"  # read 1st column
+output_model_file = "results/out_TL/TL_reinvent.chkpt"
+validation_smiles_file = "results/antivirals_valid.smi"
+
+# Define the type of similarity and its parameters
+pairs.type = "tanimoto"
+pairs.upper_threshold = 1.0
+pairs.lower_threshold = 0.7
+pairs.min_cardinality = 1
+pairs.max_cardinality = 199
